@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ResumeIQ | AI Resume Analyzer</title>
+
+    <meta
+        name="description"
+        content="Analyze your resume against a job description and discover skill matches, requirement gaps, ATS compatibility and targeted improvements."
+    >
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="container nav-container">
+
+        <a href="/" class="brand">
+            <div class="brand-icon">R</div>
+
+            <div>
+                <span class="brand-name">ResumeIQ</span>
+                <span class="brand-subtitle">AI Resume Analyzer</span>
+            </div>
+        </a>
+
+        <div class="status-badge">
+            <span class="status-dot"></span>
+            AI Powered Analysis
+        </div>
+
+    </div>
+</header>
+
+
+<main>
+
+    <section class="hero">
+        <div class="container hero-content">
+
+            <div class="eyebrow">
+                SMART RESUME ANALYSIS
+            </div>
+
+            <h1>
+                See how well your resume
+                <span>matches the role.</span>
+            </h1>
+
+            <p class="hero-description">
+                Upload your resume and job description to identify
+                skill gaps, requirement evidence, ATS compatibility
+                and targeted improvements.
+            </p>
+
+        </div>
+    </section>
+
+
+    <section class="analyzer-section">
+        <div class="container">
+
+            <div class="analyzer-card">
+
+                <div class="input-grid">
+
+                    <div class="input-section">
+
+                        <div class="section-heading">
+                            <div class="step-number">01</div>
+
+                            <div>
+                                <h2>Upload your resume</h2>
+                                <p>PDF or DOCX, up to 10 MB</p>
+                            </div>
+                        </div>
+
+                        <label
+                            for="resumeInput"
+                            class="upload-area"
+                            id="uploadArea"
+                        >
+
+                            <div class="upload-icon">
+                                ↑
+                            </div>
+
+                            <div class="upload-title">
+                                Drop your resume here
+                            </div>
+
+                            <div class="upload-subtitle">
+                                or click to browse your files
+                            </div>
+
+                            <div class="file-types">
+                                PDF &nbsp;•&nbsp; DOCX
+                            </div>
+
+                        </label>
+
+                        <input
+                            type="file"
+                            id="resumeInput"
+                            accept=".pdf,.docx"
+                            hidden
+                        >
+
+                        <div
+                            class="selected-file hidden"
+                            id="selectedFile"
+                        >
+                            <div class="file-info">
+                                <div class="file-icon">
+                                    DOC
+                                </div>
+
+                                <div>
+                                    <div
+                                        class="file-name"
+                                        id="fileName"
+                                    ></div>
+
+                                    <div
+                                        class="file-size"
+                                        id="fileSize"
+                                    ></div>
+                                </div>
+                            </div>
+
+                            <button
+                                type="button"
+                                class="remove-file"
+                                id="removeFile"
+                                aria-label="Remove selected file"
+                            >
+                                ×
+                            </button>
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-section">
+
+                        <div class="section-heading">
+                            <div class="step-number">02</div>
+
+                            <div>
+                                <h2>Add job description</h2>
+                                <p>
+                                    Paste the role you're targeting
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="textarea-wrapper">
+
+                            <textarea
+                                id="jobDescription"
+                                placeholder="Paste the complete job description here...
+
+For best results, include responsibilities, required skills, preferred qualifications and experience requirements."
+                            ></textarea>
+
+                            <div class="textarea-footer">
+                                <span id="characterCount">
+                                    0 characters
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="error-message hidden"
+                    id="errorMessage"
+                ></div>
+
+
+                <div class="analyze-action">
+
+                    <button
+                        type="button"
+                        class="analyze-button"
+                        id="analyzeButton"
+                    >
+                        <span id="buttonText">
+                            Analyze Resume
+                        </span>
+
+                        <span class="button-arrow">
+                            →
+                        </span>
+
+                        <span
+                            class="spinner hidden"
+                            id="loadingSpinner"
+                        ></span>
+                    </button>
+
+                    <p>
+                        Your resume is processed only for this analysis.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <section
+        class="results-section hidden"
+        id="resultsSection"
+    >
+
+        <div class="container">
+
+            <div class="results-header">
+
+                <div>
+                    <div class="eyebrow">
+                        ANALYSIS COMPLETE
+                    </div>
+
+                    <h2>Your Resume Match Report</h2>
+
+                    <p>
+                        Here's how your resume aligns with the
+                        job requirements.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="newAnalysisButton"
+                >
+                    New Analysis
+                </button>
+
+            </div>
+
+
+            <div class="score-grid">
+
+                <article class="score-card">
+
+                    <div class="score-label">
+                        Skill Match
+                    </div>
+
+                    <div class="score-content">
+
+                        <div
+                            class="score-value"
+                            id="skillScore"
+                        >
+                            0%
+                        </div>
+
+                        <div
+                            class="score-fraction"
+                            id="skillFraction"
+                        >
+                            0 / 0 required skills
+                        </div>
+
+                    </div>
+
+                    <div class="progress-track">
+                        <div
+                            class="progress-fill"
+                            id="skillProgress"
+                        ></div>
+                    </div>
+
+                    <p>
+                        Required technical skills found
+                        in your resume.
+                    </p>
+
+                </article>
+
+
+                <article class="score-card">
+
+                    <div class="score-label">
+                        ATS Compatibility
+                    </div>
+
+                    <div class="score-content">
+
+                        <div
+                            class="score-value"
+                            id="atsScore"
+                        >
+                            0%
+                        </div>
+
+                        <div
+                            class="score-fraction"
+                            id="atsFraction"
+                        >
+                            0 / 0 weighted points
+                        </div>
+
+                    </div>
+
+                    <div class="progress-track">
+                        <div
+                            class="progress-fill"
+                            id="atsProgress"
+                        ></div>
+                    </div>
+
+                    <p>
+                        Overall alignment with the job's
+                        weighted requirements.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <div class="content-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h3>Skills Overview</h3>
+                        <p>
+                            Required skills detected against
+                            the target role.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="skills-grid">
+
+                    <div class="skill-column">
+
+                        <div class="skill-column-title matched-title">
+                            <span>✓</span>
+                            Matched Skills
+                        </div>
+
+                        <div
+                            class="skill-tags"
+                            id="matchedSkills"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="skill-column">
+
+                        <div class="skill-column-title missing-title">
+                            <span>!</span>
+                            Missing Skills
+                        </div>
+
+                        <div
+                            class="skill-tags"
+                            id="missingSkills"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="content-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h3>Requirement Analysis</h3>
+
+                        <p>
+                            Evidence from your resume mapped
+                            against the job requirements.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div
+                    class="requirements-list"
+                    id="requirementsList"
+                ></div>
+
+            </div>
+
+
+            <div class="content-card suggestions-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h3>Improvement Suggestions</h3>
+
+                        <p>
+                            Targeted actions to strengthen your
+                            resume for this role.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div
+                    class="suggestions-list"
+                    id="suggestionsList"
+                ></div>
+
+            </div>
+
+
+            <div class="content-card cover-letter-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h3>Tailored Cover Letter</h3>
+
+                        <p>
+                            Generated only from experience and
+                            qualifications found in your resume.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="copy-button"
+                        id="copyButton"
+                    >
+                        Copy Letter
+                    </button>
+
+                </div>
+
+                <div
+                    class="cover-letter"
+                    id="coverLetter"
+                ></div>
+
+            </div>
+
+
+            <div class="report-note">
+
+                <strong>How this report works:</strong>
+
+                Skill Match measures required skill coverage.
+                ATS Compatibility evaluates weighted job
+                requirements using resume-supported evidence.
+                Scores are intended as guidance and do not
+                reproduce any employer's proprietary ATS.
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="container footer-content">
+
+        <div>
+            <strong>ResumeIQ</strong>
+            <span>AI Resume Analyzer</span>
+        </div>
+
+        <p>
+            Built with Spring Boot, Python NLP and AI
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="/js/app.js"></script>
+
+</body>
+</html>
