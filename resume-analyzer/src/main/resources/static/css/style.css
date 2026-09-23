@@ -167,6 +167,28 @@ a {
     font-weight: 500;
 }
 
+
+.jd-note {
+    display: block;
+    margin-top: 8px;
+    padding: 8px 12px;
+
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+
+    color: #475569;
+    background: #f8fafc;
+
+    border-left: 3px solid #2563eb;
+    border-radius: 4px;
+}
+
+.jd-note::before {
+    content: "ℹ ";
+    color: #2563eb;
+    font-weight: 700;
+}
 .status-badge {
     display: flex;
     align-items: center;
