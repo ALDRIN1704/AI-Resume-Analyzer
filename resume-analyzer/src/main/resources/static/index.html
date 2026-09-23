@@ -160,12 +160,19 @@
 
                         <div class="textarea-wrapper">
 
-                            <textarea
-                                id="jobDescription"
-                                placeholder="Paste the complete job description here...
+                            <label for="jobDescription">Job Description</label>
 
-For best results, include responsibilities, required skills, preferred qualifications and experience requirements."
-                            ></textarea>
+<textarea
+    id="jobDescription"
+    name="jobDescription"
+    maxlength="450"
+    placeholder="Paste the job description here..."
+    required
+></textarea>
+
+<small class="jd-note">
+    For faster analysis, please keep the job description under 450 characters.
+</small>
 
                             <div class="textarea-footer">
                                 <span id="characterCount">
