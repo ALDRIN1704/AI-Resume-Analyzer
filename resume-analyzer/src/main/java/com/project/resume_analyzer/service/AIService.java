@@ -18,6 +18,12 @@ public class AIService {
 
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
+    
+    private final String aiServiceUrl =
+            System.getenv().getOrDefault(
+                    "AI_SERVICE_URL",
+                    "http://127.0.0.1:8000"
+            );
 
     public AIService(ObjectMapper objectMapper) {
 
@@ -44,11 +50,9 @@ public class AIService {
 
             HttpRequest request =
                     HttpRequest.newBuilder()
-                            .uri(
-                                    URI.create(
-                                            "http://127.0.0.1:8000/match-requirements"
-                                    )
-                            )
+                    .uri(URI.create(
+                            aiServiceUrl + "/match-requirements"
+                    ))
                             .version(
                                     HttpClient.Version.HTTP_1_1
                             )
@@ -125,11 +129,9 @@ public class AIService {
 
             HttpRequest request =
                     HttpRequest.newBuilder()
-                            .uri(
-                                    URI.create(
-                                            "http://127.0.0.1:8000/generate"
-                                    )
-                            )
+                    .uri(URI.create(
+                            aiServiceUrl + "/generate"
+                    ))
                             .version(
                                     HttpClient.Version.HTTP_1_1
                             )
@@ -201,11 +203,9 @@ public class AIService {
 
             HttpRequest request =
                     HttpRequest.newBuilder()
-                            .uri(
-                                    URI.create(
-                                            "http://127.0.0.1:8000/analyze"
-                                    )
-                            )
+                    .uri(URI.create(
+                            aiServiceUrl + "/analyze"
+                    ))
                             .version(
                                     HttpClient.Version.HTTP_1_1
                             )
